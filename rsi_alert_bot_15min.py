@@ -21,42 +21,42 @@ tickers = [
 
 # RSI calculator
 def compute_rsi(close, period=14):
-delta = close.diff()
-gain = delta.where(delta > 0, 0).rolling(period).mean()
-loss = -delta.where(delta < 0, 0).rolling(period).mean()
-rs = gain / loss
-return 100 - (100 / (1 + rs))
+    delta = close.diff()
+    gain = delta.where(delta > 0, 0).rolling(period).mean()
+    loss = -delta.where(delta < 0, 0).rolling(period).mean()
+    rs = gain / loss
+    return 100 - (100 / (1 + rs))
 
 
 # RSI crossover detection
 def check_rsi_rebound_15m(ticker):
-df = yf.download(ticker, period="5d", interval="15m", progress=False)
-if df.empty or len(df) < 15:
-return False
-df['RSI'] = compute_rsi(df['Close'])
-return df['RSI'].iloc[-2] < 30 and df['RSI'].iloc[-1] > 30
+    df = yf.download(ticker, period="5d", interval="15m", progress=False)
+    if df.empty or len(df) < 15:
+    return False
+    df['RSI'] = compute_rsi(df['Close'])
+    return df['RSI'].iloc[-2] < 30 and df['RSI'].iloc[-1] > 30
 
 
 # Duplicate alert log
 def load_alerted_log(log_file="rsi_alert_log.txt"):
-try:
-with open(log_file, "r") as file:
-return set(line.strip() for line in file.readlines())
-except FileNotFoundError:
-return set()
+    try:
+    with open(log_file, "r") as file:
+    return set(line.strip() for line in file.readlines())
+    except FileNotFoundError:
+    return set()
 
 
 def update_alert_log(tickers_triggered, log_file="rsi_alert_log.txt"):
-with open(log_file, "a") as file:
-for ticker in tickers_triggered:
-file.write(f"{ticker}-{datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
+    with open(log_file, "a") as file:
+    for ticker in tickers_triggered:
+    file.write(f"{ticker}-{datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
 
 
 # Send Discord alert with TradingView links
 def send_discord_alert(tickers_triggered):
-if not WEBHOOK_URL:
-print(" Webhook URL is missing.")
-return
+    if not WEBHOOK_URL:
+    print(" Webhook URL is missing.")
+    return
 
 
 lines = []
@@ -89,9 +89,9 @@ print(" Error sending Discord alert:", e)
 
 # Main logic
 def main():
-print(f" RSI scan started at {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-alerted = load_alerted_log()
-new_signals = []
+    print(f" RSI scan started at {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+    alerted = load_alerted_log()
+    new_signals = []
 
 
 for ticker in tickers:
