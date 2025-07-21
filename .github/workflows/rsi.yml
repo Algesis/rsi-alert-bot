@@ -1,0 +1,26 @@
+name: RSI Alert Bot
+
+on:
+schedule:
+- cron: "*/15 * * * *" # every 15 minutes
+workflow_dispatch:
+
+jobs:
+run-bot:
+runs-on: ubuntu-latest
+steps:
+- name: Checkout repo
+uses: actions/checkout@v3
+
+- name: Set up Python
+uses: actions/setup-python@v4
+with:
+python-version: "3.11"
+
+- name: Install dependencies
+run: pip install -r requirements.txt
+
+- name: Run bot
+env:
+RSI_DISCORD_WEBHOOK: ${{ secrets.RSI_DISCORD_WEBHOOK }}
+run: python rsi_alert_bot_15min.py
