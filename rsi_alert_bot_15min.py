@@ -20,7 +20,8 @@ tickers = [
 
 
 # RSI calculator
-def compute_rsi(close, period=14):
+def compute_rsi(data, period=14):
+    close = data['close']
     delta = close.diff()
     gain = delta.where(delta > 0, 0).rolling(period).mean()
     loss = -delta.where(delta < 0, 0).rolling(period).mean()
