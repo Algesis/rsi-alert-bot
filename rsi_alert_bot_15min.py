@@ -60,35 +60,35 @@ def update_alert_log(tickers_triggered, log_file="rsi_alert_log.txt"):
 def send_discord_alert(tickers_triggered):
     if not WEBHOOK_URL:
         print(" Webhook URL is missing.")
-    return
+        return
 
 
-lines = []
-for ticker in tickers_triggered:
-    tv_ticker = ticker.replace("=F", "") # Futures
-    if ticker.endswith("=X"):
-        tv_symbol = ticker.replace("=X", "")
-        tv_link = f"https://www.tradingview.com/chart/?symbol=FX:{tv_symbol}"
-    else:
-        tv_link = f"https://www.tradingview.com/chart/?symbol={tv_ticker.upper()}"
-    lines.append(f"• `{ticker}` → [View Chart]({tv_link})")
+    lines = []
+    for ticker in tickers_triggered:
+        tv_ticker = ticker.replace("=F", "") # Futures
+        if ticker.endswith("=X"):
+            tv_symbol = ticker.replace("=X", "")
+            tv_link = f"https://www.tradingview.com/chart/?symbol=FX:{tv_symbol}"
+        else:
+            tv_link = f"https://www.tradingview.com/chart/?symbol={tv_ticker.upper()}"
+        lines.append(f"• `{ticker}` → [View Chart]({tv_link})")
 
 
-content = (
-f" **RSI(14) crossed ABOVE 30** on the 15-minute chart:\n"
-+ "\n".join(lines) +
-f"\n {datetime.now().strftime('%Y-%m-%d %H:%M')}"
-)
+    content = (
+        f" **RSI(14) crossed ABOVE 30** on the 15-minute chart:\n"
+        + "\n".join(lines) +
+        f"\n {datetime.now().strftime('%Y-%m-%d %H:%M')}"
+    )
 
 
-try:
-response = requests.post(WEBHOOK_URL, json={"content": content})
-if response.status_code == 204:
-print(" Discord alert sent.")
-else:
-print(f" Webhook failed with status code {response.status_code}")
-except Exception as e:
-print(" Error sending Discord alert:", e)
+    try:
+        response = requests.post(WEBHOOK_URL, json={"content": content})
+        if response.status_code == 204:
+            print(" Discord alert sent.")
+        else:
+            print(f" Webhook failed with status code {response.status_code}")
+    except Exception as e:
+        print(" Error sending Discord alert:", e)
 
 
 # Main logic
