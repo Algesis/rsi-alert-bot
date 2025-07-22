@@ -44,6 +44,9 @@ def load_alerted_log(log_file="rsi_alert_log.txt"):
         with open(log_file, "r") as file:
             return set(line.strip() for line in file.readlines())
     except FileNotFoundError:
+        # Create the file for future use
+        with open(log_file, "w") as file:
+            pass
         return set()
 
 
