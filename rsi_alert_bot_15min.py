@@ -59,7 +59,7 @@ def update_alert_log(tickers_triggered, log_file="rsi_alert_log.txt"):
 # Send Discord alert with TradingView links
 def send_discord_alert(tickers_triggered):
     if not WEBHOOK_URL:
-    print(" Webhook URL is missing.")
+        print(" Webhook URL is missing.")
     return
 
 
