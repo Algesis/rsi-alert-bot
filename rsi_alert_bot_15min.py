@@ -53,7 +53,7 @@ def load_alerted_log(log_file="rsi_alert_log.txt"):
 def update_alert_log(tickers_triggered, log_file="rsi_alert_log.txt"):
     with open(log_file, "a") as file:
         for ticker in tickers_triggered:
-    file.write(f"{ticker}-{datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
+            file.write(f"{ticker}-{datetime.now().strftime('%Y-%m-%d %H:%M')}\n")
 
 
 # Send Discord alert with TradingView links
