@@ -33,7 +33,7 @@ def compute_rsi(data, period=14):
 def check_rsi_rebound_15m(ticker):
     df = yf.download(ticker, period="5d", interval="15m", progress=False)
     if df.empty or len(df) < 15:
-    return False
+      return False
     df['RSI'] = compute_rsi(df['Close'])
     return df['RSI'].iloc[-2] < 30 and df['RSI'].iloc[-1] > 30
 
