@@ -98,25 +98,25 @@ def main():
     new_signals = []
 
 
-for ticker in tickers:
-try:
-if check_rsi_rebound_15m(ticker):
-alert_id = f"{ticker}-{datetime.now().strftime('%Y-%m-%d %H:%M')}"
-if not any(alert_id.startswith(f"{ticker}-") for alert_id in alerted):
-new_signals.append(ticker)
-except Exception as e:
-print(f" Error checking {ticker}: {e}")
+    for ticker in tickers:
+        try:
+            if check_rsi_rebound_15m(ticker):
+                alert_id = f"{ticker}-{datetime.now().strftime('%Y-%m-%d %H:%M')}"
+                if not any(alert_id.startswith(f"{ticker}-") for alert_id in alerted):
+                    new_signals.append(ticker)
+        except Exception as e:
+            print(f" Error checking {ticker}: {e}")
 
 
-if new_signals:
-send_discord_alert(new_signals)
-update_alert_log(new_signals)
-else:
-print("No new RSI signals.")
+    if new_signals:
+        send_discord_alert(new_signals)
+        update_alert_log(new_signals)
+    else:
+        print("No new RSI signals.")
 
 
-if __name__ == "__main__":
-main()
+    if __name__ == "__main__":
+        main()
 
 
 
