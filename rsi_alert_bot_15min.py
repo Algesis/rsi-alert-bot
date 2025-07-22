@@ -14,8 +14,8 @@ WEBHOOK_URL = os.getenv('RSI_DISCORD_WEBHOOK')
 # Ticker list
 tickers = [
 'GLD', 'SLV', 'USO', 'SPY', 'QQQ',
-'MGC=F', 'MCL=F', 'MES=F',
-'EURUSD=X', 'JPY=X', 'GBPUSD=X'
+'MGC=F', 'MCL=F', 'MES=F', 'MHG=F', 'MNG=F', 'MNQ=F', 
+'EURUSD=X', 'JPY=X', 'GBPUSD=X', 'USDJPY=X', 'AUDUSD=X'
 ]
 
 
