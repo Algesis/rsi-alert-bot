@@ -42,9 +42,9 @@ def check_rsi_rebound_15m(ticker):
 def load_alerted_log(log_file="rsi_alert_log.txt"):
     try:
         with open(log_file, "r") as file:
-    return set(line.strip() for line in file.readlines())
-    except FileNotFoundError:
-    return set()
+        return set(line.strip() for line in file.readlines())
+        except FileNotFoundError:
+        return set()
 
 
 def update_alert_log(tickers_triggered, log_file="rsi_alert_log.txt"):
