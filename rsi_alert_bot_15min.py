@@ -65,13 +65,13 @@ def send_discord_alert(tickers_triggered):
 
 lines = []
 for ticker in tickers_triggered:
-tv_ticker = ticker.replace("=F", "") # Futures
-if ticker.endswith("=X"):
-tv_symbol = ticker.replace("=X", "")
-tv_link = f"https://www.tradingview.com/chart/?symbol=FX:{tv_symbol}"
-else:
-tv_link = f"https://www.tradingview.com/chart/?symbol={tv_ticker.upper()}"
-lines.append(f"• `{ticker}` → [View Chart]({tv_link})")
+    tv_ticker = ticker.replace("=F", "") # Futures
+    if ticker.endswith("=X"):
+        tv_symbol = ticker.replace("=X", "")
+        tv_link = f"https://www.tradingview.com/chart/?symbol=FX:{tv_symbol}"
+    else:
+        tv_link = f"https://www.tradingview.com/chart/?symbol={tv_ticker.upper()}"
+    lines.append(f"• `{ticker}` → [View Chart]({tv_link})")
 
 
 content = (
