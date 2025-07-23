@@ -31,7 +31,7 @@ TRADINGVIEW_EXCHANGES = {
     "MNQ=F": "CME_MINI",
     "MGC=F": "COMEX",
     "MCL=F": "NYMEX",
-    "MHG=F": "COMEX"
+    "MHG=F": "COMEX",
     "MNG=F": "NYMEX"
 }
 
