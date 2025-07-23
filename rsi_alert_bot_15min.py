@@ -57,9 +57,22 @@ def compute_rsi(data, period=14):
 def check_rsi_rebound_15m(ticker):
     df = yf.download(ticker, period="5d", interval="15m", progress=False)
     if df.empty or len(df) < 15:
+        print(f"❌ No or insufficient data for {ticker}")
         return False
+
     df['RSI'] = compute_rsi(df['Close'])
-    return df['RSI'].iloc[-2] < 30 and df['RSI'].iloc[-1] > 30
+    rsi = df['RSI'].dropna()
+
+    if len(rsi) < 2:
+        print(f"⚠️ Not enough RSI values for {ticker}")
+        return False
+
+    print(f"📊 {ticker} RSI[-2]: {rsi.iloc[-2]:.2f}, RSI[-1]: {rsi.iloc[-1]:.2f}")
+    if rsi.iloc[-2] < 30 and rsi.iloc[-1] > 30:
+        print(f"✅ RSI condition met for {ticker}")
+        return True
+
+    return False
 
 
 # Duplicate alert log
