@@ -141,7 +141,28 @@ def main():
         main()
 
 
+import requests
+import os
 
+WEBHOOK_URL = os.getenv("RSI_DISCORD_WEBHOOK")
+
+def test_webhook():
+    if not WEBHOOK_URL:
+        print("❌ Webhook URL is missing.")
+        return
+
+    test_payload = {
+        "content": "✅ This is a test alert from the RSI bot using a dummy webhook!"
+    }
+
+    try:
+        response = requests.post(WEBHOOK_URL, json=test_payload)
+        print(f"Webhook test sent. Response: {response.status_code}")
+    except Exception as e:
+        print(f"Webhook test failed: {e}")
+
+# Run test
+test_webhook()
 
 
 
