@@ -19,6 +19,30 @@ tickers = [
 ]
 
 
+TRADINGVIEW_EXCHANGES = {
+    "AAPL": "NASDAQ",
+    "MSFT": "NASDAQ",
+    "TSLA": "NASDAQ",
+    "AMZN": "NASDAQ",
+    "SPY": "AMEX",
+    "QQQ": "NASDAQ",
+    "NVDA": "NASDAQ",
+    "MES=F": "CME_MINI",
+    "MNQ=F": "CME_MINI",
+    "MGC=F": "COMEX",
+    "MCL=F": "NYMEX",
+    "MHG=F": "COMEX"
+    "MNG=F": "NYMEX"
+}
+
+
+def get_tradingview_link(ticker):
+    exchange = TRADINGVIEW_EXCHANGES.get(ticker, "NASDAQ")
+    # Replace '=F' with '1!' for futures compatibility
+    tv_ticker = ticker.replace("=F", "1!")
+    return f"https://www.tradingview.com/chart/?symbol={exchange}:{tv_ticker}"
+
+
 # RSI calculator
 def compute_rsi(data, period=14):
     close = data['close']
@@ -63,16 +87,14 @@ def send_discord_alert(tickers_triggered):
         return
 
 
-    lines = []
+    message = "🚨 **RSI Alert Triggered**\n\n"
     for ticker in tickers_triggered:
-        tv_ticker = ticker.replace("=F", "") # Futures
-        if ticker.endswith("=X"):
-            tv_symbol = ticker.replace("=X", "")
-            tv_link = f"https://www.tradingview.com/chart/?symbol=FX:{tv_symbol}"
-        else:
-            tv_link = f"https://www.tradingview.com/chart/?symbol={tv_ticker.upper()}"
-        lines.append(f"• `{ticker}` → [View Chart]({tv_link})")
+        link = get_tradingview_link(ticker)
+        message += f"**{ticker}** → [Chart]({link})\n"
 
+    data = {
+        "content": message
+    }
 
     content = (
         f" **RSI(14) crossed ABOVE 30** on the 15-minute chart:\n"
