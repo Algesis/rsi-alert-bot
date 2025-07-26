@@ -64,15 +64,17 @@ def check_rsi_rebound_15m(ticker):
     rsi = df['RSI'].dropna()
 
     if len(rsi) < 2:
-        print(f"⚠️ Not enough RSI values for {ticker}")
+        print(f"⚠️ Not enough RSI data for {ticker}")
         return False
 
-    print(f"📊 {ticker} RSI[-2]: {rsi.iloc[-2]:.2f}, RSI[-1]: {rsi.iloc[-1]:.2f}")
-    if rsi.iloc[-2] < 30 and rsi.iloc[-1] > 30:
-        print(f"✅ RSI condition met for {ticker}")
-        return True
+    print(f"📊 {ticker} - RSI[-2]: {rsi.iloc[-2]:.2f}, RSI[-1]: {rsi.iloc[-1]:.2f}")
 
-    return False
+    if rsi.iloc[-2] < 30 and rsi.iloc[-1] > 30:
+        print(f"✅ RSI signal found for {ticker}")
+        return True
+    else:
+        print(f"❌ No RSI crossover for {ticker}")
+        return False
 
 
 # Duplicate alert log
