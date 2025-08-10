@@ -9,7 +9,7 @@ import requests
 TICKERS = [
     "AAPL", "MSFT", "TSLA", "SPY", "QQQ", "NVDA",
     "MES=F", "MNQ=F", "MGC=F", "MCL=F", "MHG=F", "SIL=F",
-    "EURUSD=X", "GBPUSD=X", "JPY=X", "USDJPY=X", USDCAD=X", "AUDUSD=X"
+    "EURUSD=X", "GBPUSD=X", "JPY=X", "USDJPY=X", "USDCAD=X", "AUDUSD=X"
 ]
 WEBHOOK_URL = os.getenv("RSI_DISCORD_WEBHOOK")
 LOG_FILE = "rsi_alert_log.txt"        # de-dup store
