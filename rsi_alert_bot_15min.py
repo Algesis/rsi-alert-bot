@@ -7,7 +7,7 @@ import requests
 
 # ========= CONFIG =========
 TICKERS = [
-    "AAPL", "MSFT", "TSLA", "SPY", "QQQ", "NVDA",
+    "AAPL", "TSLA", "SPY", "QQQ", "NVDA",
     "MES=F", "MNQ=F", "MGC=F", "MCL=F", "MHG=F", "SIL=F",
     "EURUSD=X", "GBPUSD=X", "JPY=X", "USDJPY=X", "USDCAD=X", "AUDUSD=X"
 ]
@@ -18,7 +18,7 @@ LOOKBACK_PERIOD = "7d"                # enough 15m bars for RSI(14)
 
 # Map some common symbols to their TradingView exchange
 TRADINGVIEW_EXCHANGES = {
-    "AAPL": "NASDAQ", "MSFT": "NASDAQ", "TSLA": "NASDAQ",
+    "AAPL": "NASDAQ", "TSLA": "NASDAQ",
     "AMZN": "NASDAQ", "SPY": "AMEX", "QQQ": "NASDAQ", "NVDA": "NASDAQ",
     "MES=F": "CME_MINI", "MNQ=F": "CME_MINI", "MGC=F": "COMEX", "MCL=F": "NYMEX", 
     "MHG=F": "COMEX", "SIL=F": "COMEX"
